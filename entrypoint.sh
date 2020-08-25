@@ -5,6 +5,7 @@
 set -e
 
 OUTPUT_ZIP=$(mktemp -t cryticXXXX --suffix=.zip)
+npm install
 crytic-compile . --truffle-version "$2" --export-zip "$OUTPUT_ZIP"
 
 OUTPUT_JSON=$(mktemp -t cryticXXXX --suffix=.json)
