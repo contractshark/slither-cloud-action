@@ -1,0 +1,21 @@
+name: 'Slither Cloud'
+description: 'Runs Slither in the cloud'
+inputs:
+  slither-cloud-uri:
+    description: 'The URL of the Slither cloud instance'
+    required: true
+  truffle-version:
+    description: >
+      The version of Truffle to run on the codebase, such as "truffle@5.0.0".
+      Default is "truffle", which will use the latest.
+    required: true
+    default: 'truffle'
+outputs:
+  sarif_path:
+    description: 'Path to the resulting SARIF JSON file'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.slither-cloud-uri }}
+    - ${{ inputs.truffle-version }}
