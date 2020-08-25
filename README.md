@@ -35,7 +35,7 @@ jobs:
       id: slither
       uses: trailofbits/slither-cloud-action@v1
       with:
-        slither-cloud-uri: ${SLITHER_CLOUD_URI_SECRET}
+        slither-cloud-uri: ${{ secrets.SLITHER_CLOUD_URI }}
         truffle-version: 'truffle'
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v1
