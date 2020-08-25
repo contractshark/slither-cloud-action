@@ -11,4 +11,5 @@ crytic-compile . --truffle-version "$2" --export-zip "$OUTPUT_ZIP"
 OUTPUT_JSON=$(mktemp cryticXXXX --suffix=.sarif)
 
 (printf '{"zip":"'; base64 -w 0 "$OUTPUT_ZIP"; printf '"}';) | curl -X POST -d @- "$1" > "$OUTPUT_JSON"
+chmod 644 "$OUTPUT_JSON"
 echo "::set-output name=sarif::$OUTPUT_JSON"
