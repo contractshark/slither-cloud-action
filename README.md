@@ -40,5 +40,5 @@ jobs:
     - name: Upload SARIF file
       uses: github/codeql-action/upload-sarif@v1
       with:
-        sarif_file: "${{ steps.slither.outputs.sarif-path }}"
+        sarif_file: "${{ steps.slither.outputs.sarif }}"
 ```
