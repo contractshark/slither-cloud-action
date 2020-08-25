@@ -11,7 +11,7 @@ inputs:
     required: true
     default: 'truffle'
 outputs:
-  sarif_path:
+  sarif-path:
     description: 'Path to the resulting SARIF JSON file'
 runs:
   using: 'docker'
