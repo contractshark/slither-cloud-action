@@ -1,14 +1,16 @@
-ARG PYTHON_VERSION=3.8
+# syntax=docker/dockerfile:1.2
 
-FROM python:${PYTHON_VERSION}
+FROM python:3.8-slim-buster
+ENV PYTHONUNBUFFERED 1
+ENV LANG='en_US.UTF-8' LANGUAGE='en_US:en' LC_ALL='en_US.UTF-8'
 
-ARG NODE_VERSION=10
 
-#ARG NVM_VERSION=0.35.3
-#RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash
-#ENV NVM_DIR="/root/.nvm"
-#RUN . /root/.nvm/nvm.sh && nvm install ${NODE_VERSION}
-RUN curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - && apt-get install -y nodejs
+RUN curl -sSL "https://raw.githubusercontent.com/CircleCI-Public/cimg-node/master/ALIASES" -o nodeAliases.txt && \
+	NODE_VERSION=$(grep "lts" ./nodeAliases.txt | cut -d "=" -f 2-) && \
+	curl -L -o node.tar.xz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.xz" && \
+	sudo tar -xJf node.tar.xz -C /usr/local --strip-components=1 && \
+	rm node.tar.xz nodeAliases.txt && \
+	sudo ln -s /usr/local/bin/node /usr/local/bin/nodejs
 
 RUN pip install crytic-compile
 
